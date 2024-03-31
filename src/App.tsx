@@ -7,7 +7,7 @@ import useOrder from "./hooks/useOrder"
 
 function App() {
 
-    const {order, addOrder, removeOrder, tip , setTip} = useOrder();
+    const { order, addOrder, removeOrder, tip, setTip, submitOrder } = useOrder();
 
     return (
         <>
@@ -15,7 +15,7 @@ function App() {
                 <h1 className=" text-center text-4xl font-black">Calculadora de Propinas y Consumo</h1>
             </header>
 
-{/* -------------------- MENU COLUMN ---------------------- */}
+            {/* -------------------- MENU COLUMN ---------------------- */}
             <main className=" max-w-7xl mx-auto py-20 grid md:grid-cols-2">
                 <div className="p-5">
                     <h2 className="text-4xl font-black">Menu</h2>
@@ -30,22 +30,32 @@ function App() {
                     </div>
                 </div>
 
-{/* -------------------- ORDER COLUMN ---------------------- */}
+                {/* -------------------- ORDER COLUMN ---------------------- */}
 
                 <div className="border-2 border-dashed border-slate-300 p-5 rounded-lg space-y-10">
-                    <OrderContents 
-                        order={order}
-                        removeOrder = {removeOrder}
-                    />
+                    {order.length ? (
+                        <>
+                            <OrderContents
+                                order={order}
+                                removeOrder={removeOrder}
+                            />
 
-                    <TipPercentageForm 
-                        setTip ={setTip}
-                    />
+                            <TipPercentageForm
+                                setTip={setTip}
+                                tip={tip}
+                            />
 
-                    <OrderTotals 
-                        order= {order}
-                        tip= {tip}
-                    />
+                            <OrderTotals
+                                order={order}
+                                tip={tip}
+                                submitOrder={submitOrder}
+                            />
+                        </>
+                    )
+                        :
+                        (
+                            <p className="text-center">No hay ningún pedido</p>
+                        )}
                 </div>
             </main>
 
