@@ -21,9 +21,12 @@ export default function useOrder() {
         }
     }
 
-    console.log(order)
+    const removeOrder = (id: MenuItem['id']) => {
+        setOrder(order.filter(item => item.id !== id));
+    }
     return {
         order,
-        addOrder
+        addOrder, 
+        removeOrder,
     }
 }
